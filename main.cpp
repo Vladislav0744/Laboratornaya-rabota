@@ -1,15 +1,3 @@
-/**
- * @file main.cpp
- * @brief Главный файл программы "Почта России"
- *
- * Консольное приложение для управления почтовыми отправлениями.
- * Позволяет добавлять/удалять отделения, посылки, отслеживать их статус,
- * выдавать посылки получателям.
- *
- * @author Студент
- * @date 2026
- */
-
 #include <iostream>
 #include <string>
 #include <limits>
@@ -20,32 +8,20 @@
 
 using namespace std;
 
-/// @brief Скорость доставки грузовика в километрах в день
 double SKOROST = 450.0;
 
 #ifdef _WIN32
     #include <direct.h>
-    /**
-     * @brief Создать папку (Windows)
-     * @param path Путь к папке
-     */
     void sozdatPapku(const string& path) {
         _mkdir(path.c_str());
     }
 #else
     #include <sys/stat.h>
-    /**
-     * @brief Создать папку (Linux/macOS)
-     * @param path Путь к папке
-     */
     void sozdatPapku(const string& path) {
         mkdir(path.c_str(), 0777);
     }
 #endif
 
-/**
- * @brief Отобразить главное меню программы
- */
 void pokazatMenu() {
     cout << "\n========================================\n";
     cout << "         ПОЧТА РОССИИ\n";
@@ -61,10 +37,6 @@ void pokazatMenu() {
     cout << "> ";
 }
 
-/**
- * @brief Диалог добавления нового отделения
- * @param h Ссылка на объект базы данных
- */
 void dobavitOtdel(Holder& h) {
     int id;
     double x, y;
@@ -86,10 +58,6 @@ void dobavitOtdel(Holder& h) {
     cout << "Отделение добавлено\n";
 }
 
-/**
- * @brief Диалог удаления отделения
- * @param h Ссылка на объект базы данных
- */
 void udalitOtdel(Holder& h) {
     int id;
     cout << "ID отделения: "; cin >> id;
@@ -101,11 +69,6 @@ void udalitOtdel(Holder& h) {
     }
 }
 
-/**
- * @brief Отображение информации об отделении
- * @param h Ссылка на объект базы данных
- * @details Выводит список посылок внутри отделения и список посылок в пути
- */
 void posmotretOtdel(Holder& h) {
     int id;
     cout << "ID отделения: "; cin >> id;
@@ -147,10 +110,6 @@ void posmotretOtdel(Holder& h) {
     }
 }
 
-/**
- * @brief Диалог добавления новой посылки
- * @param h Ссылка на объект базы данных
- */
 void dobavitPosylku(Holder& h) {
     string treker, otpravitel, poluchatel;
     double ves;
@@ -187,10 +146,6 @@ void dobavitPosylku(Holder& h) {
     cout << "Посылка добавлена\n";
 }
 
-/**
- * @brief Поиск посылки по трек-номеру
- * @param h Ссылка на объект базы данных
- */
 void naytiPosylku(Holder& h) {
     string treker;
     cout << "Введите трек-номер: "; cin >> treker;
@@ -226,10 +181,6 @@ void naytiPosylku(Holder& h) {
     cout << "========================================\n";
 }
 
-/**
- * @brief Диалог выдачи посылки получателю
- * @param h Ссылка на объект базы данных
- */
 void vydatPosylku(Holder& h) {
     string treker, fio;
     cout << "Трек-номер: "; cin >> treker;
@@ -246,10 +197,6 @@ void vydatPosylku(Holder& h) {
     }
 }
 
-/**
- * @brief Прокрутка времени вперёд
- * @param h Ссылка на объект базы данных
- */
 void prokrutka(Holder& h) {
     int dni;
     cout << "На сколько дней проматываем время? "; cin >> dni;
@@ -263,10 +210,6 @@ void prokrutka(Holder& h) {
     cout << "\nПрошло " << dni << " дней\n";
 }
 
-/**
- * @brief Главная функция программы
- * @return 0 при успешном завершении
- */
 int main() {
     sozdatPapku("data");
     
